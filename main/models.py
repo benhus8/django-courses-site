@@ -42,8 +42,8 @@ class Exam(models.Model):
 
 class UserExam(models.Model):
     user_exam_id = models.AutoField(primary_key=True)
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-    user = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='exam')
+    user = models.ForeignKey(Exam, on_delete=models.CASCADE , related_name='user')
 
 
 class ExamQuestion(models.Model):
