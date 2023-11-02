@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunSQL(
-            'CREATE TABLE IF NOT EXISTS course ('
+            'CREATE TABLE IF NOT EXISTS main_course ('
             'course_id  INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,'
             'description  VARCHAR(1000) NOT NULL,'
             'access_duration  INTEGER NOT NULL,'
