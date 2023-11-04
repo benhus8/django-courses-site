@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from django.utils.html import format_html
-import base64
+from base64 import b64encode
+import os
+from django.conf import settings
 from .models import Mentor, Course, User, User_Course, Asset, Exam, User_Exam, Exam_Question, Exam_Question_Answer, Exam_Exam_Question, Subject, Lesson, Lesson_Content, Certificate
 
 @admin.register(Mentor)
@@ -30,11 +31,21 @@ class AssetAdmin(admin.ModelAdmin):
 
     def display_image(self, obj):
         if obj.image:
-            image_base64 = base64.b64encode(obj.image).decode('utf-8')
-            return format_html('<img src="data:image/png;base64,{}" width="100" height="100" />', image_base64)
+            image_path = obj.image.tobytes().decode('utf-8')
+
+            # Construct the absolute file path to the image
+            file_path = os.path.join(settings.MEDIA_ROOT, image_path)
+
+            # Odczytujemy zawartość pliku z podanej ścieżki
+            with open(file_path, "rb") as image_file:
+                image_data = image_file.read()
+                image_base64 = b64encode(image_data).decode('utf-8')
+
+            return mark_safe('<img src="data:image/png;base64, {}" width="100" height="100">'.format(image_base64))
         return "Brak zdjęcia"
 
     display_image.short_description = 'Image'
+
 
 @admin.register(Exam)
 class ExamAdmin(admin.ModelAdmin):

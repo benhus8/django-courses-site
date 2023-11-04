@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.html import mark_safe
 class Mentor(models.Model):
     mentor_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=100)
@@ -55,7 +54,6 @@ class User_Course(models.Model):
 class Asset(models.Model):
     asset_id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to='assets')
-
     class Meta:
         managed = False
         db_table = 'main_asset'
