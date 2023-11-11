@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 class Mentor(models.Model):
     mentor_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=100)
@@ -7,9 +8,6 @@ class Mentor(models.Model):
     email = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=12)
 
-    class Meta:
-        managed = False
-        db_table = 'main_mentor'
 
 class Course(models.Model):
     course_id = models.AutoField(primary_key=True)
@@ -20,25 +18,17 @@ class Course(models.Model):
     language_cd = models.CharField(max_length=2)
     mentor = models.ForeignKey(Mentor, on_delete=models.CASCADE)
 
-    class Meta:
-        managed = False
-        db_table = 'main_course'
 
 
-class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    birthday = models.DateField()
-    phone_number = models.CharField(max_length=12, null=True, blank=True)
-    address = models.CharField(max_length=100)
-    building_number = models.CharField(max_length=10, null=True, blank=True)
-    postal_code = models.CharField(max_length=6)
-    city = models.CharField(max_length=10)
+class User(AbstractUser):
+    birthday = models.DateField(default='2020-01-01')
+    phone_number = models.CharField(max_length=12, null=True, blank=True, default='')
+    address = models.CharField(max_length=100, default='')
+    building_number = models.CharField(max_length=10, null=True, blank=True, default='')
+    postal_code = models.CharField(max_length=6, default='')
+    city = models.CharField(max_length=10, default='')
 
-    class Meta:
-        managed = False
-        db_table = 'main_user'
+
 
 
 class User_Course(models.Model):
@@ -46,17 +36,11 @@ class User_Course(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    class Meta:
-        managed = False
-        db_table = 'main_user_course'
 
 
 class Asset(models.Model):
     asset_id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to='assets')
-    class Meta:
-        managed = False
-        db_table = 'main_asset'
 
 class Exam(models.Model):
     exam_id = models.AutoField(primary_key=True)
@@ -64,9 +48,6 @@ class Exam(models.Model):
     max_score = models.IntegerField()
     passed = models.BooleanField(default=False)
 
-    class Meta:
-        managed = False
-        db_table = 'main_exam'
 
 
 class User_Exam(models.Model):
@@ -74,9 +55,6 @@ class User_Exam(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='exam')
     user = models.ForeignKey(Exam, on_delete=models.CASCADE , related_name='user')
 
-    class Meta:
-        managed = False
-        db_table = 'main_user_exam'
 
 
 class Exam_Question(models.Model):
@@ -84,9 +62,6 @@ class Exam_Question(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     description = models.CharField(max_length=1000)
 
-    class Meta:
-        managed = False
-        db_table = 'main_exam_question'
 
 class Exam_Question_Answer(models.Model):
     answer_id = models.AutoField(primary_key=True)
@@ -95,18 +70,11 @@ class Exam_Question_Answer(models.Model):
     description = models.CharField(max_length=1000)
     correct = models.BooleanField()
 
-    class Meta:
-        managed = False
-        db_table = 'main_exam_question_answer'
 
 class Exam_Exam_Question(models.Model):
     exam_exam_question_id = models.AutoField(primary_key=True)
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     exam_question = models.ForeignKey(Exam_Question, on_delete=models.CASCADE)
-
-    class Meta:
-        managed = False
-        db_table = 'main_exam_exam_question'
 
 class Subject(models.Model):
     subject_id = models.AutoField(primary_key=True)
@@ -114,9 +82,6 @@ class Subject(models.Model):
     title = models.CharField(max_length=100)
     seqence = models.CharField(max_length=1000)
 
-    class Meta:
-        managed = False
-        db_table = 'main_subject'
 
 class Lesson(models.Model):
     lesson_id = models.AutoField(primary_key=True)
@@ -125,9 +90,6 @@ class Lesson(models.Model):
     short_description = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=1000)
 
-    class Meta:
-        managed = False
-        db_table = 'main_lesson'
 
 class Lesson_Content(models.Model):
     lesson_content_id = models.AutoField(primary_key=True)
@@ -136,9 +98,6 @@ class Lesson_Content(models.Model):
     seqence = models.CharField(max_length=1000)
     content_type = models.CharField(max_length=100)
 
-    class Meta:
-        managed = False
-        db_table = 'main_lesson_content'
 
 class Certificate(models.Model):
     certificate_id = models.AutoField(primary_key=True)
@@ -149,7 +108,3 @@ class Certificate(models.Model):
     certificate_pdf_path = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'main_certificate'
