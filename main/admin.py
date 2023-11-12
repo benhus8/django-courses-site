@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin.models import LogEntry
 from django.utils.safestring import mark_safe
 from base64 import b64encode
 import os
@@ -17,8 +18,8 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('user_id','first_name', 'last_name', 'birthday', 'phone_number', 'address', 'building_number', 'postal_code', 'city')
-    search_fields = ('user_id','first_name', 'last_name', 'birthday', 'phone_number', 'address', 'building_number', 'postal_code', 'city')
+    list_display = ('id','first_name', 'last_name', 'birthday', 'phone_number', 'address', 'building_number', 'postal_code', 'city')
+    search_fields = ('id','first_name', 'last_name', 'birthday', 'phone_number', 'address', 'building_number', 'postal_code', 'city')
 
 @admin.register(User_Course)
 class UserCourseAdmin(admin.ModelAdmin):
@@ -49,8 +50,8 @@ class AssetAdmin(admin.ModelAdmin):
 
 @admin.register(Exam)
 class ExamAdmin(admin.ModelAdmin):
-    list_display = ('exam_id','score', 'max_score', 'passed')
-    search_fields = ('exam_id','score', 'max_score', 'passed')
+    list_display = ('exam_id','score', 'max_score', 'passed','course')
+    search_fields = ('exam_id','score', 'max_score', 'passed','course')
 
 @admin.register(User_Exam)
 class UserExamAdmin(admin.ModelAdmin):
