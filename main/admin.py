@@ -50,8 +50,8 @@ class AssetAdmin(admin.ModelAdmin):
 
 @admin.register(Exam)
 class ExamAdmin(admin.ModelAdmin):
-    list_display = ('exam_id','score', 'max_score', 'passed')
-    search_fields = ('exam_id','score', 'max_score', 'passed')
+    list_display = ('exam_id','score', 'max_score', 'passed','course')
+    search_fields = ('exam_id','score', 'max_score', 'passed','course')
 
 @admin.register(User_Exam)
 class UserExamAdmin(admin.ModelAdmin):

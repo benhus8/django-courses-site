@@ -8,6 +8,9 @@ class Mentor(models.Model):
     email = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=12)
 
+    class Meta:
+        ordering = ['mentor_id']
+
 
 class Course(models.Model):
     course_id = models.AutoField(primary_key=True)
@@ -18,6 +21,8 @@ class Course(models.Model):
     language_cd = models.CharField(max_length=2)
     mentor = models.ForeignKey(Mentor, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['course_id']
 
 
 class User(AbstractUser):
@@ -28,7 +33,8 @@ class User(AbstractUser):
     postal_code = models.CharField(max_length=6, default='')
     city = models.CharField(max_length=10, default='')
 
-
+    class Meta:
+        ordering = ['id']
 
 
 class User_Course(models.Model):
@@ -36,24 +42,36 @@ class User_Course(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['user_course_id']
 
 
 class Asset(models.Model):
     asset_id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to='assets')
 
+    class Meta:
+        ordering = ['asset_id']
+
 class Exam(models.Model):
     exam_id = models.AutoField(primary_key=True)
     score = models.IntegerField()
     max_score = models.IntegerField()
     passed = models.BooleanField(default=False)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['exam_id']
 
 
 
 class User_Exam(models.Model):
     user_exam_id = models.AutoField(primary_key=True)
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='exam')
-    user = models.ForeignKey(Exam, on_delete=models.CASCADE , related_name='user')
+    user = models.ForeignKey(User, on_delete=models.CASCADE , related_name='user')
+
+    class Meta:
+        ordering = ['user_exam_id']
 
 
 
@@ -61,6 +79,9 @@ class Exam_Question(models.Model):
     exam_question_id = models.AutoField(primary_key=True)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     description = models.CharField(max_length=1000)
+
+    class Meta:
+        ordering = ['exam_question_id']
 
 
 class Exam_Question_Answer(models.Model):
@@ -70,17 +91,26 @@ class Exam_Question_Answer(models.Model):
     description = models.CharField(max_length=1000)
     correct = models.BooleanField()
 
+    class Meta:
+        ordering = ['answer_id']
+
 
 class Exam_Exam_Question(models.Model):
     exam_exam_question_id = models.AutoField(primary_key=True)
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     exam_question = models.ForeignKey(Exam_Question, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['exam_exam_question_id']
+
 class Subject(models.Model):
     subject_id = models.AutoField(primary_key=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     seqence = models.CharField(max_length=1000)
+
+    class Meta:
+        ordering = ['subject_id']
 
 
 class Lesson(models.Model):
@@ -90,6 +120,9 @@ class Lesson(models.Model):
     short_description = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=1000)
 
+    class Meta:
+        ordering = ['lesson_id']
+
 
 class Lesson_Content(models.Model):
     lesson_content_id = models.AutoField(primary_key=True)
@@ -98,6 +131,8 @@ class Lesson_Content(models.Model):
     seqence = models.CharField(max_length=1000)
     content_type = models.CharField(max_length=100)
 
+    class Meta:
+        ordering = ['lesson_content_id']
 
 class Certificate(models.Model):
     certificate_id = models.AutoField(primary_key=True)
@@ -108,3 +143,6 @@ class Certificate(models.Model):
     certificate_pdf_path = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ['certificate_id']
