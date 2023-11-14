@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css'
 import Navbar from "./components/Navbar";
 import Account from "./views/Account";
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Register from "./views/Register";
 import Shop from "./views/Shop";
 
@@ -19,7 +19,6 @@ function App() {
                     <Route exact path="account" element={<Account/>}/>
                     <Route exact path="shop" element={<Shop/>}/>
                     <Route exact path="register" element={<Register/>}/>
-                    <Route path="login" element={<Navigate to="login" replace={true}/>}
                     />
                 </Routes>
             </div>
