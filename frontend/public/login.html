@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 {% block content %}
-    <body style="background-color: #87CEFA;">
+    <body style="background-color: #54B4D3;">
     <div class="container">
         <div  style="height: 100vh; padding:50px; margin-top: 20px;">
             <form method="POST" class="card" novalidate
@@ -12,12 +12,12 @@
                         <a style="font-size: 30px; font-weight: bold; padding-bottom: 10px"> Log in</a>
                         <legend style="font-size: 15px; margin-bottom: 10px;"> {{ form|crispy }}</legend>
                         <div style="padding-top: 40px; align-items: center;">
-                            <button type="submit" style="padding: 7px; height: 60px; width: 350px; background-color: #87CEFA; font-size: 40px; color: snow">Login</button>
+                            <button type="submit" style="padding: 7px; height: 60px; width: 350px; background-color: #54B4D3; font-size: 40px; color: snow">Login</button>
                         </div>
                     </div>
                     <div style="display: flex; flex-direction: column; align-items: center; padding-top: 10px">
                     <small >Don't have an account? <a
-                                                                        href="{% url 'index' %}">Register</a></small>
+                                                                        href="{% url 'registerView' %}">Register</a></small>
                 </div>
                 </fieldset>
 
