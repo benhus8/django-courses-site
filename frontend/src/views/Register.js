@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -58,158 +58,208 @@ const Register = () => {
         <div className="container mt-5">
             <h1>Registration</h1>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="username" className="form-label">Username:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="username"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className="card">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="username" className="form-label">Username:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="username"
+                                        name="username"
+                                        value={formData.username}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="first_name" className="form-label">First Name:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="first_name"
+                                        name="first_name"
+                                        value={formData.first_name}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="last_name" className="form-label">Last Name:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="last_name"
+                                        name="last_name"
+                                        value={formData.last_name}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="email" className="form-label">Email:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="birthday" className="form-label">Birthday:</label>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        id="birthday"
+                                        name="birthday"
+                                        value={formData.birthday}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="phone_number" className="form-label">Phone number:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="phone_number"
+                                        name="phone_number"
+                                        value={formData.phone_number}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="address" className="form-label">Address:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="address"
+                                        name="address"
+                                        value={formData.address}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="building_number" className="form-label">Building Number:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="building_number"
+                                        name="building_number"
+                                        value={formData.building_number}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="postal_code" className="form-label">Postal code:</label>
+                                    <input
+                                        type="postal"
+                                        className="form-control"
+                                        id="postal_code"
+                                        name="postal_code"
+                                        value={formData.postal_code}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="city" className="form-label">City:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="city"
+                                        name="city"
+                                        value={formData.city}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="password" className="form-label">Password:</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="password1"
+                                        name="password1"
+                                        value={formData.password1}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    {formData.password1.length > 0 && formData.password1.length < 8 && (
+                                        <div className="text-danger">This password is too short. It must contain at
+                                            least 8
+                                            characters</div>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="mb-3">
+                                    <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="password2"
+                                        name="password2"
+                                        value={formData.password2}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    {formData.password2 !== formData.password1 && (
+                                        <div className="text-danger">Confirmed password and password field must be the
+                                            same</div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-6">
+                                <button type="submit" className="btn btn-primary"
+                                        disabled={invalidForm(formData)}>Register
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="first_name" className="form-label">First Name:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="first_name"
-                        name="first_name"
-                        value={formData.first_name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="last_name" className="form-label">Last Name:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="last_name"
-                        name="last_name"
-                        value={formData.last_name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email:</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                    <div className="mb-3">
-                        <label htmlFor="birthday" className="form-label">Birthday:</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            id="birthday"
-                            name="birthday"
-                            value={formData.birthday}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="phone_number" className="form-label">Phone number:</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="phone_number"
-                            name="phone_number"
-                            value={formData.phone_number}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="address" className="form-label">Address:</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="address"
-                            name="address"
-                            value={formData.address}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="building_number" className="form-label">Building Number:</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="building_number"
-                            name="building_number"
-                            value={formData.building_number}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="postal_code" className="form-label">Postal code:</label>
-                        <input
-                            type="postal"
-                            className="form-control"
-                            id="postal_code"
-                            name="postal_code"
-                            value={formData.postal_code}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="city" className="form-label">City:</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="city"
-                            name="city"
-                            value={formData.city}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password:</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="password1"
-                            name="password1"
-                            value={formData.password1}
-                            onChange={handleChange}
-                            required
-                        />
-                        {formData.password1.length > 0 && formData.password1.length < 8 && (
-                            <div className="text-danger">This password is too short. It must contain at least 8
-                                characters</div>
-                        )}
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="password2"
-                            name="password2"
-                            value={formData.password2}
-                            onChange={handleChange}
-                            required
-                        />
-                        {formData.password2 !== formData.password1 && (
-                            <div className="text-danger">Confirmed password and password field must be the same</div>
-                        )}
-                    </div>
-                </div>
-                <button type="submit" className="btn btn-primary" disabled={invalidForm(formData)}>Register</button>
+
             </form>
             {errors && (
                 <div className="text-danger">
