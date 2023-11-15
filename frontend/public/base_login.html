@@ -1,0 +1,27 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Courses.IT</title>
+</head>
+<body>
+<div class="container mx-auto mt-5 d-flex" style="padding-top: 25vh;">
+    <div class="card text-center" style="width: 40vh; margin: auto;">
+        <div class="card-header">
+            Login
+        </div>
+        <div class="card-body ">
+            {% block main %}
+            {% endblock %}
+        </div>
+        <div class="card-footer text-muted">
+            <small>Don't have an account? <a href="{% url 'registerView' %}">Register</a></small>
+        </div>
+    </div>
+    <img src="{% static 'login_img.jpg' %}" alt="" style="width: 40vh; margin: auto;">
+</div>
+</body>
+</html>
