@@ -8,6 +8,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import ensure_csrf_cookie
+from .models import Course,User_Course,Subject, Lesson
 
 from main.forms import RegistrationForm
 
@@ -62,3 +64,83 @@ def get_user_data(request):
     }
     return JsonResponse(user_data)
 
+@login_required
+def get_available_courses(request):
+    courses = list(Course.objects.all().values())
+    return JsonResponse(courses, safe=False)
+
+
+@login_required
+def add_course_to_user(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            course_id = int(data.get('courseId'))
+
+            course = Course.objects.get(course_id=course_id)
+
+            User_Course.objects.create(user=request.user, course=course)
+
+            return JsonResponse({'message': 'Course added successfully'})
+        except Course.DoesNotExist:
+            return JsonResponse({'error': 'Course not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
+@ensure_csrf_cookie
+def get_csrf_token(request):
+    return JsonResponse({'detail': 'CSRF cookie set'})
+
+@login_required
+def get_user_courses(request):
+    user = request.user
+    try:
+        user_courses = User_Course.objects.filter(user=user)
+        course_ids = [user_course.course_id for user_course in user_courses]
+
+        courses = Course.objects.filter(course_id__in=course_ids).values(
+            'course_id',
+            'description',
+            'access_duration',
+            'net_amount',
+            'language_cd',
+        )
+
+        return JsonResponse(list(courses), safe=False)
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@login_required
+def get_course_subjects(request, course_id):
+    try:
+        course = Course.objects.get(course_id=course_id)
+        subjects = Subject.objects.filter(course=course)
+        data = [{'id': subject.subject_id, 'title': subject.title, 'description': subject.seqence} for subject in subjects]
+        return JsonResponse(data, safe=False)
+    except Course.DoesNotExist:
+        return JsonResponse({'error': 'Course not found'}, status=404)
+
+@login_required
+def get_subject_lessons(request, course_id, subject_id):
+    try:
+        course = Course.objects.get(course_id=course_id)
+        subject = Subject.objects.get(subject_id=subject_id, course=course)
+        lessons = Lesson.objects.filter(subject=subject)
+        data = [{'id': lesson.lesson_id, 'description': lesson.description} for lesson in lessons]
+        return JsonResponse(data, safe=False)
+    except (Course.DoesNotExist, Subject.DoesNotExist):
+        return JsonResponse({'error': 'Course or subject not found'}, status=404)
+
+@login_required
+def get_course_title(request, course_id):
+    try:
+        course = Course.objects.get(course_id=course_id)
+        return JsonResponse({'title': course.description})
+    except Course.DoesNotExist:
+        return JsonResponse({'error': 'Course not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

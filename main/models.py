@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.html import mark_safe
 class Mentor(models.Model):
     mentor_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=100)
@@ -50,6 +51,8 @@ class Asset(models.Model):
     asset_id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to='assets')
 
+    def img_preview(self):  # new
+        return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
     class Meta:
         ordering = ['asset_id']
 
