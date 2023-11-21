@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from main import views
 from main.views import MyLoginView, MyLogoutView
-from django.conf import settings #new
-from django.conf.urls.static import static #new
+from django.conf import settings  # new
+from django.conf.urls.static import static  # new
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,15 +33,17 @@ urlpatterns = [
     path('api/get_user_data/', views.get_user_data, name='get_user_data'),
     path('api/get_available_courses/', views.get_available_courses, name='get_available_courses'),
     path('api/register', views.register, name='register'),
-    path('api/add_course_to_user/',views.add_course_to_user,name='add_course_to_user'),
+    path('api/add_course_to_user/', views.add_course_to_user, name='add_course_to_user'),
     path('api/csrf_cookie/', views.get_csrf_token, name='get_csrf_token'),
     path('api/get_user_courses/',views.get_user_courses,name='get_user_courses'),
     path('api/get_course_subjects/<int:course_id>/',views.get_course_subjects,name='get_course_subjects'),
     path('api/get_course_title/<int:course_id>/',views.get_course_title,name='get_course_title'),
     path('api/delete_user_course/',views.delete_user_course,name='delete_user_course'),
-    path('api/get_subject_lessons/<int:course_id>/<int:subject_id>/',views.get_subject_lessons,name='get_subject_lessons')
+    path('api/get_subject_lessons/<int:course_id>/<int:subject_id>/',views.get_subject_lessons,name='get_subject_lessons'),
+    path('edit-user-data', views.index, name='edit-data-index'),
+    path('api/edit-user-data', views.edit_user_data, name='api-edit-user-data'),
 
 ]
 
 if settings.DEBUG:
-    urlpatterns += static( settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

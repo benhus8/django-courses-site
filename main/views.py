@@ -9,17 +9,19 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import ensure_csrf_cookie
-from .models import Course,User_Course,Subject, Lesson
-
-from main.forms import RegistrationForm
+from .models import Course, User_Course, Subject, Lesson
+from rest_framework.decorators import api_view
+from main.forms import RegistrationForm, EditUserDataForm
 
 
 @login_required()
 def index(request):
     return render(request, 'index.html')
 
+
 def registerView(request):
     return render(request, 'index.html')
+
 
 @require_POST
 @csrf_exempt
@@ -34,6 +36,22 @@ def register(request):
         response = JsonResponse({'errors': errors}, status=400)
         print(response.content.decode('utf-8'))
         return JsonResponse({'errors': errors}, status=400)
+
+@api_view(['PUT'])
+@login_required
+def edit_user_data(request):
+    data = json.loads(request.body)
+    user = request.user
+    form = EditUserDataForm(data, instance=user)
+    if form.is_valid():
+        form.save()
+        return JsonResponse({'message': 'Edittion successful'}, status=201)
+    else:
+        errors = {field: form.errors[field][0] for field in form.errors}
+        response = JsonResponse({'errors': errors}, status=400)
+        print(response.content.decode('utf-8'))
+        return JsonResponse({'errors': errors}, status=400)
+
 class MyLoginView(LoginView):
     redirect_authenticated_user = True
 
@@ -43,6 +61,7 @@ class MyLoginView(LoginView):
     def form_invalid(self, form):
         messages.error(self.request, 'Invalid username or password')
         return self.render_to_response(self.get_context_data(form=form))
+
 
 class MyLogoutView(LogoutView):
     next_page = reverse_lazy('login')
@@ -63,6 +82,7 @@ def get_user_data(request):
         'city': request.user.city,
     }
     return JsonResponse(user_data)
+
 
 @login_required
 def get_available_courses(request):
@@ -128,6 +148,7 @@ def delete_user_course(request):
 def get_csrf_token(request):
     return JsonResponse({'detail': 'CSRF cookie set'})
 
+
 @login_required
 def get_user_courses(request):
     user = request.user
@@ -148,15 +169,18 @@ def get_user_courses(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+
 @login_required
 def get_course_subjects(request, course_id):
     try:
         course = Course.objects.get(course_id=course_id)
         subjects = Subject.objects.filter(course=course)
-        data = [{'id': subject.subject_id, 'title': subject.title, 'description': subject.seqence} for subject in subjects]
+        data = [{'id': subject.subject_id, 'title': subject.title, 'description': subject.seqence} for subject in
+                subjects]
         return JsonResponse(data, safe=False)
     except Course.DoesNotExist:
         return JsonResponse({'error': 'Course not found'}, status=404)
+
 
 @login_required
 def get_subject_lessons(request, course_id, subject_id):
@@ -168,6 +192,7 @@ def get_subject_lessons(request, course_id, subject_id):
         return JsonResponse(data, safe=False)
     except (Course.DoesNotExist, Subject.DoesNotExist):
         return JsonResponse({'error': 'Course or subject not found'}, status=404)
+
 
 @login_required
 def get_course_title(request, course_id):

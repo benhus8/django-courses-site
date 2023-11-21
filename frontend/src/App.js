@@ -20,7 +20,8 @@ function App() {
                     <Route exact path="my-courses" element={<MyCourses/>}/>
                     <Route exact path="account" element={<Account/>}/>
                     <Route exact path="shop" element={<Shop/>}/>
-                    <Route exact path="register" element={<Register/>}/>
+                    <Route exact path="register" element={<Register mode="add"/>}/>
+                    <Route exact path="edit-user-data" element={<Register mode="edit"/>}/>
                     <Route exact path="details/:courseId" element={<Details/>}/>
                     />
                 </Routes>

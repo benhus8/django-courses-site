@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
+import {Link, useNavigate} from "react-router-dom";
 
 const Account = () => {
     const [userData, setUserData] = useState(null);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -15,10 +16,19 @@ const Account = () => {
         };
         fetchUserData();
     }, []);
-
+    const handleEditDataClick = () => {
+        // Navigate to the "/edit-user-data" route when the button is clicked
+        navigate('/edit-user-data');
+        window.location.reload();
+    };
     return (
-        <div className="container mt-5">
-            <h5 className="mb-4">User Data</h5>
+        <div className="container mt-5 flex">
+
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h5>User Data</h5>
+                <button type="submit" className="btn btn-primary"
+                        onClick={handleEditDataClick}>Edit Data</button>
+            </div>
             <hr></hr>
             {userData && (
                 <div className="card">
