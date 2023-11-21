@@ -4,10 +4,11 @@ const Shop = () => {
     const [courses, setCourses] = useState([]);
     const [error, setError] = useState(null);
     const [purchased, setPurchased] = useState(false);
-    //const [userId, setUserId] = useState(null);
     const [csrfToken, setCsrfToken] = useState('');
 
-    useEffect(() => {
+
+    useEffect(async () => {
+
         const fetchCourses = async () => {
             try {
                 const response = await fetch('/api/get_available_courses/');
@@ -55,7 +56,8 @@ const Shop = () => {
                 setPurchased(true);
                 setTimeout(() => {
                     setPurchased(false);
-                }, 3000); // Wyświetl komunikat przez 3 sekundy
+                }, 3000);// Wyświetl komunikat przez 3 sekundy
+                window.location.reload()
             } else {
                 setPurchased(false);
             }
@@ -83,7 +85,9 @@ const Shop = () => {
                                     <p className="card-text">Language: {course.language_cd}</p>
                                     <button
                                         className="btn btn-primary"
-                                        onClick={() => handlePurchase(course.course_id)}
+                                        onClick={() => {
+                                            handlePurchase(course.course_id)
+                                        }}
                                     >
                                         Purchase
                                     </button>

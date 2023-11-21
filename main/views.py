@@ -66,8 +66,23 @@ def get_user_data(request):
 
 @login_required
 def get_available_courses(request):
-    courses = list(Course.objects.all().values())
-    return JsonResponse(courses, safe=False)
+    user = request.user
+    try:
+        user_courses = User_Course.objects.filter(user=user)
+        course_ids = [user_course.course_id for user_course in user_courses]
+
+        courses = Course.objects.exclude(course_id__in=course_ids).values(
+            'course_id',
+            'description',
+            'access_duration',
+            'net_amount',
+            'language_cd',
+        )
+
+        return JsonResponse(list(courses), safe=False)
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 @login_required
