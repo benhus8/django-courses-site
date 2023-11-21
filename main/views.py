@@ -104,6 +104,25 @@ def add_course_to_user(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
+@login_required
+def delete_user_course(request):
+    if request.method == 'DELETE':
+        try:
+            data = json.loads(request.body)
+            course_id = int(data.get('courseId'))
+
+            user_course = User_Course.objects.get(user=request.user, course_id=course_id)
+            user_course.delete()
+
+            return JsonResponse({'message': 'Course deleted successfully'})
+        except User_Course.DoesNotExist:
+            return JsonResponse({'error': 'User course not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
 
 @ensure_csrf_cookie
 def get_csrf_token(request):

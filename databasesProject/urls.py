@@ -38,6 +38,7 @@ urlpatterns = [
     path('api/get_user_courses/',views.get_user_courses,name='get_user_courses'),
     path('api/get_course_subjects/<int:course_id>/',views.get_course_subjects,name='get_course_subjects'),
     path('api/get_course_title/<int:course_id>/',views.get_course_title,name='get_course_title'),
+    path('api/delete_user_course/',views.delete_user_course,name='delete_user_course'),
     path('api/get_subject_lessons/<int:course_id>/<int:subject_id>/',views.get_subject_lessons,name='get_subject_lessons')
 
 ]
