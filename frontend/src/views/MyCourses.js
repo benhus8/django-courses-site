@@ -5,8 +5,24 @@ const MyCourses = () => {
     const [userCourses, setUserCourses] = useState([]);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const [csrfToken, setCsrfToken] = useState('');
 
     useEffect(() => {
+
+        const fetchCsrfToken = async () => {
+            try {
+                const response = await fetch('/api/csrf_cookie/');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch CSRF token');
+                }
+                // Pobierz CSRF token z ciasteczek odpowiedzi
+                const csrfToken = response.headers.get('csrftoken');
+                setCsrfToken(csrfToken);
+            } catch (error) {
+                console.error('Error fetching CSRF token:', error);
+            }
+        };
+        fetchCsrfToken();
         const fetchUserCourses = async () => {
             try {
                 const response = await fetch('/api/get_user_courses/');
@@ -25,6 +41,33 @@ const MyCourses = () => {
 
     const handleDetails = (courseId) => {
          navigate(`/details/${courseId}`);
+    };
+
+    const handleDelete = async (courseId) => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this course?');
+        if (confirmDelete) {
+            try {
+                const response = await fetch('/api/delete_user_course/', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.cookie.match(/csrftoken=([^ ;]+)/)[1]
+                    },
+                    body: JSON.stringify({
+                        courseId: courseId
+                    })
+                });
+                if (response.ok) {
+                    // Usunięto pomyślnie, odśwież listę kursów
+                    const updatedUserCourses = userCourses.filter(course => course.course_id !== courseId);
+                    setUserCourses(updatedUserCourses);
+                } else {
+                    console.error('Failed to delete course');
+                }
+            } catch (error) {
+                console.error('Error deleting course:', error);
+            }
+        }
     };
 
     return (
@@ -48,6 +91,13 @@ const MyCourses = () => {
                                         onClick={() => handleDetails(course.course_id)}
                                     >
                                         Details
+                                    </button>
+                                    <button
+                                        className="btn btn-danger"
+                                        style={{ marginLeft: '5px' }}
+                                        onClick={() => handleDelete(course.course_id)}
+                                    >
+                                        Delete
                                     </button>
                                 </div>
                             </div>
