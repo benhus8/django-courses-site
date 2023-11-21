@@ -40,6 +40,17 @@ const Shop = () => {
         fetchCsrfToken();
     }, []);
 
+    useEffect(() => {
+        if (purchased) {
+            const timer = setTimeout(() => {
+                setPurchased(false);
+                window.location.reload(); // Przeładuj stronę
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [purchased]);
+
     const handlePurchase = async (courseId) => {
         try {
             const response = await fetch('/api/add_course_to_user/', {
@@ -57,7 +68,6 @@ const Shop = () => {
                 setTimeout(() => {
                     setPurchased(false);
                 }, 3000);// Wyświetl komunikat przez 3 sekundy
-                window.location.reload()
             } else {
                 setPurchased(false);
             }
