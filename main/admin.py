@@ -14,7 +14,7 @@ class MentorAdmin(admin.ModelAdmin):
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('course_id','description', 'access_duration', 'net_amount', 'vat', 'language_cd', 'mentor')
-    search_fields =  ('course_id','description', 'access_duration', 'net_amount', 'vat', 'language_cd', 'mentor')
+    search_fields =  ('course_id','description', 'access_duration', 'net_amount', 'vat', 'language_cd')
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -24,72 +24,54 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(User_Course)
 class UserCourseAdmin(admin.ModelAdmin):
     list_display = ('user_course_id','course', 'user')
-    search_fields = ('user_course_id','course', 'user')
+    search_fields = ('user_course_id',)
 
 @admin.register(Asset)
 class AssetAdmin(admin.ModelAdmin):
-    list_display = ('asset_id', 'display_image')
-
-    def display_image(self, obj):
-        if obj.image:
-            image_path = obj.image.tobytes().decode('utf-8')
-
-            # Construct the absolute file path to the image
-            file_path = os.path.join(settings.MEDIA_ROOT, image_path)
-
-            # Odczytujemy zawartość pliku z podanej ścieżki
-            with open(file_path, "rb") as image_file:
-                image_data = image_file.read()
-                image_base64 = b64encode(image_data).decode('utf-8')
-
-            return mark_safe('<img src="data:image/png;base64, {}" width="100" height="100">'.format(image_base64))
-        return "Brak zdjęcia"
-
-    display_image.short_description = 'Image'
-
+    list_display = ('asset_id', 'img_preview')
 
 @admin.register(Exam)
 class ExamAdmin(admin.ModelAdmin):
     list_display = ('exam_id','score', 'max_score', 'passed','course')
-    search_fields = ('exam_id','score', 'max_score', 'passed','course')
+    search_fields = ('exam_id','score', 'max_score', 'passed')
 
 @admin.register(User_Exam)
 class UserExamAdmin(admin.ModelAdmin):
     list_display = ('user_exam_id','exam', 'user')
-    search_fields = ('user_exam_id','exam', 'user')
+    search_fields = ('user_exam_id',)
 
 @admin.register(Exam_Question)
 class ExamQuestionAdmin(admin.ModelAdmin):
     list_display = ('exam_question_id', 'asset','description')
-    search_fields = ('exam_question_id', 'asset','description')
+    search_fields = ('exam_question_id', 'description')
 
 @admin.register(Exam_Question_Answer)
 class ExamQuestionAnswerAdmin(admin.ModelAdmin):
     list_display = ('answer_id','exam_question','asset', 'description', 'correct')
-    search_fields = ('answer_id','exam_question','asset', 'description', 'correct')
+    search_fields = ('answer_id', 'description', 'correct')
 
 @admin.register(Exam_Exam_Question)
 class ExamExamQuestionAdmin(admin.ModelAdmin):
     list_display = ('exam_exam_question_id','exam', 'exam_question')
-    search_fields = ('exam_exam_question_id','exam', 'exam_question')
+    search_fields = ('exam_exam_question_id',)
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
     list_display = ('subject_id','course', 'title','seqence')
-    search_fields = ('subject_id','course', 'title','seqence')
+    search_fields = ('subject_id', 'title','seqence')
 
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     list_display = ('lesson_id','subject', 'seqence', 'short_description', 'description')
-    search_fields = ('lesson_id','subject', 'seqence', 'short_description', 'description')
+    search_fields = ('lesson_id', 'seqence', 'short_description', 'description')
 
 @admin.register(Lesson_Content)
 class LessonContentAdmin(admin.ModelAdmin):
     list_display = ('lesson_content_id','lesson', 'asset', 'seqence', 'content_type')
-    search_fields = ('lesson_content_id','lesson', 'asset', 'seqence', 'content_type')
+    search_fields = ('lesson_content_id','seqence', 'content_type')
 
 @admin.register(Certificate)
 class CertificateAdmin(admin.ModelAdmin):
     list_display = ('certificate_id','course', 'user', 'date_from', 'date_to','certificate_pdf_path', 'title', 'description')
-    search_fields = ('certificate_id','course', 'user', 'date_from', 'date_to','certificate_pdf_path', 'title', 'description')
+    search_fields = ('certificate_id', 'date_from', 'date_to','certificate_pdf_path', 'title', 'description')
 
