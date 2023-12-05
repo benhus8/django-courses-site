@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.db import connection
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import JsonResponse
@@ -99,7 +100,16 @@ def get_available_courses(request):
             'language_cd',
         )
 
-        return JsonResponse(list(courses), safe=False)
+        available_courses = []
+        with connection.cursor() as cursor:
+            for course in courses:
+                course_id = course['course_id']
+                cursor.execute('SELECT calculate_total_price(%s)', [course_id])
+                total_price = cursor.fetchone()[0]
+                course['total_price'] = total_price
+                available_courses.append(course)
+
+        return JsonResponse(available_courses, safe=False)
 
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
@@ -130,13 +140,13 @@ def delete_user_course(request):
         try:
             data = json.loads(request.body)
             course_id = int(data.get('courseId'))
+            user_id = request.user.id
 
-            user_course = User_Course.objects.get(user=request.user, course_id=course_id)
-            user_course.delete()
+            with connection.cursor() as cursor:
+                # Call the stored procedure
+                cursor.execute('CALL delete_main_user_course(%s, %s)', [course_id, user_id])
 
             return JsonResponse({'message': 'Course deleted successfully'})
-        except User_Course.DoesNotExist:
-            return JsonResponse({'error': 'User course not found'}, status=404)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
 
