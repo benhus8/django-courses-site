@@ -91,7 +91,8 @@ const Shop = () => {
                                 <div className="card-body">
                                     <h5 className="card-title">{course.description}</h5>
                                     <p className="card-text">Duration: {course.access_duration} days</p>
-                                    <p className="card-text">Price: {course.net_amount} PLN</p>
+                                    <p className="card-text">Net price: {course.net_amount} PLN</p>
+                                    <p className="card-text">Total price: {course.total_price} PLN</p>
                                     <p className="card-text">Language: {course.language_cd}</p>
                                     <button
                                         className="btn btn-primary"
