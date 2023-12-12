@@ -1,3 +1,48 @@
+# Aplikacja Edukacyjna
+
+## Opis
+
+Aplikacja Edukacyjna to platforma internetowa oparta na frameworku Django, stworzona do ułatwiania zarządzania kursami online. Pozwala użytkownikom na pełne korzystanie z funkcji związanych z edukacją, rejestrację, dostęp do różnych kursów, edycję profilu, dodawanie kursów do swojego konta oraz śledzenie postępu w nauce.
+
+## Funkcje Kluczowe
+
+### Strony i Widoki
+
+- **Strona Główna**: Zawiera informacje ogólne i jest dostępna po zalogowaniu.
+- **Rejestracja Użytkownika**: Umożliwia nowym użytkownikom dołączenie do społeczności edukacyjnej.
+- **Logowanie/Wylogowywanie**: Bezpieczne logowanie i wylogowywanie z systemu.
+- **Profil Użytkownika**: Dostęp do i edycja informacji o użytkowniku.
+- **Dostępne Kursy**: Przegląd i wybór kursów dostępnych dla danego użytkownika.
+- **Dodawanie Kursu**: Możliwość dodawania nowych kursów do konta użytkownika.
+- **Usuwanie Kursu**: Opcja usuwania kursów z konta użytkownika.
+
+### Operacje na Danych
+
+- **Rejestracja Użytkownika**: Umożliwia nowym użytkownikom utworzenie konta.
+- **Edycja Profilu**: Możliwość zmiany danych osobowych w profilu użytkownika.
+- **Pobieranie Listy Kursów Użytkownika**: Wyświetla kursy przypisane do danego użytkownika.
+- **Pobieranie Przedmiotów Kursu**: Wyświetla listę przedmiotów dostępnych w danym kursie.
+- **Pobieranie Lekcji Przedmiotu**: Umożliwia przegląd lekcji dla danego przedmiotu.
+- **Pobieranie Tytułu Kursu**: Zwraca tytuł danego kursu.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Base commands
 ### Migration commands
 - reset all apllied migrations <br>
