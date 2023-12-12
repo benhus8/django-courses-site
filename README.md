@@ -16,14 +16,7 @@ Aplikacja Edukacyjna to platforma internetowa oparta na frameworku Django, stwor
 - **Dodawanie Kursu**: Możliwość dodawania nowych kursów do konta użytkownika.
 - **Usuwanie Kursu**: Opcja usuwania kursów z konta użytkownika.
 
-### Operacje na Danych
 
-- **Rejestracja Użytkownika**: Umożliwia nowym użytkownikom utworzenie konta.
-- **Edycja Profilu**: Możliwość zmiany danych osobowych w profilu użytkownika.
-- **Pobieranie Listy Kursów Użytkownika**: Wyświetla kursy przypisane do danego użytkownika.
-- **Pobieranie Przedmiotów Kursu**: Wyświetla listę przedmiotów dostępnych w danym kursie.
-- **Pobieranie Lekcji Przedmiotu**: Umożliwia przegląd lekcji dla danego przedmiotu.
-- **Pobieranie Tytułu Kursu**: Zwraca tytuł danego kursu.
 
 
 
