@@ -1,60 +1,40 @@
-# Aplikacja Edukacyjna
+# Educational Application
 
-## Opis
+## Description
 
-Aplikacja Edukacyjna to platforma internetowa oparta na frameworku Django, stworzona do ułatwiania zarządzania kursami online. Pozwala użytkownikom na pełne korzystanie z funkcji związanych z edukacją, rejestrację, dostęp do różnych kursów, edycję profilu, dodawanie kursów do swojego konta oraz śledzenie postępu w nauce.
+The Educational Application is a web platform based on the Django framework, designed to facilitate the management of online courses. It allows users to fully utilize education-related functions, including registration, access to various courses, profile editing, adding courses to their account, and tracking learning progress.
 
-## Funkcje Kluczowe
+## Key Features
 
-### Strony i Widoki
+### Pages and Views
 
-- **Strona Główna**: Zawiera informacje ogólne i jest dostępna po zalogowaniu.
-- **Rejestracja Użytkownika**: Umożliwia nowym użytkownikom dołączenie do społeczności edukacyjnej.
-- **Logowanie/Wylogowywanie**: Bezpieczne logowanie i wylogowywanie z systemu.
-- **Profil Użytkownika**: Dostęp do i edycja informacji o użytkowniku.
-- **Dostępne Kursy**: Przegląd i wybór kursów dostępnych dla danego użytkownika.
-- **Dodawanie Kursu**: Możliwość dodawania nowych kursów do konta użytkownika.
-- **Usuwanie Kursu**: Opcja usuwania kursów z konta użytkownika.
+- **Home Page**: Contains general information and is accessible after logging in.
+- **User Registration**: Allows new users to join the educational community.
+- **Login/Logout**: Secure login and logout from the system.
+- **User Profile**: Access to and editing of user information.
+- **Available Courses**: Browse and select courses available to the user.
+- **Course Addition**: Ability to add new courses to the user's account.
+- **Course Deletion**: Option to remove courses from the user's account.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Base commands
-### Migration commands
-- reset all apllied migrations <br>
+## Base Commands
+### Migration Commands
+- Reset all applied migrations <br>
 `python manage.py migrate main zero`
-- add new empty migration <br>
+- Add new empty migration <br>
 `python manage.py makemigrations --empty main`
-- check changes made in models/migrations <br>
+- Check changes made in models/migrations <br>
 `python manage.py makemigrations `
-- aplly new migrations/ changes in migrations <br>
+- Apply new migrations/ changes in migrations <br>
 `python manage.py migrate `
-### Application commands
-- run app <br>
+### Application Commands
+- Run app <br>
 `python  manage.py runserver `
-### Users commands
-- create admin user <br>
+### Users Commands
+- Create admin user <br>
 `python manage.py createsuperuser`
 
 ## Workflow
 ### Branches
-- Main branch is develop. From this branch we create feature branches and all other types of branches. When The project is done or we are confident that everything is work fine we can merge it to master.
-### When feature branch is done
-- When your job is done and you commited and pushed your all changes you should create pull request. Second person will check if everything is working fine and after that second person can merge your feature branch to develop.
+- The main branch is develop. From this branch, we create feature branches and all other types of branches. When the project is done or we are confident that everything is working fine, we can merge it to master.
+### When Feature Branch Is Done
+- When your job is done and you've committed and pushed all your changes, you should create a pull request. The second person will check if everything is working fine, and after that, the second person can merge your feature branch to develop.
